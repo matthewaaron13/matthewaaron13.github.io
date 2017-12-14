@@ -1,1 +1,10 @@
-
+.picture {
+  height:900px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#p1 {
+  background-image: url("http://i.cdn.turner.com/drp/nba/bulls/sites/default/files/styles/story_main_photo/public/generic_graphic.jpeg?itok=uaK4kk_j");
+}
