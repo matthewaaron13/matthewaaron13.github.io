@@ -17,12 +17,19 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    z-index: 0;
+  }
+  .bottomlayer{
+    z-index: 1;
+  }
+  .toplayer{
+  z-index: 99999;
   }
   </style>
 </head>
 <body>
-  <h1>Matthews CookBook</h1>
-  <h2>Home Page</h2>
-  <div class="picture p1" id="p1"></div>
+  <div class="picture p1 bottomlayer" id="p1"></div>
+  <div class="toplayer">
+    <h1>Matthews CookBook</h1>
+    <h2>Home Page</h2>
+</div>
 </body>
