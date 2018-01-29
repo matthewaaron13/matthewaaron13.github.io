@@ -2,8 +2,47 @@
 <html>
 <head>
   <title>Matthews CookBook</title>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <style>
+ .topmenu{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 24px;
+    background-color: #333;
+    z-index: 99999;
+  }
+  ul{
+list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  a:link,a:visited{
+display: block;
+    font-weight:bold;
+    color: #FFFFFF;
+    background-color: #333;
+    width: 120px;
+    text-align: center;
+    padding: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity:0.8;
+  }
+  a:hover,a:active{
+background-color: #acc;
+  }
+li{
+float:left;
+}
+li>div>ul>li{
+  float:none;
+  clear:both;
+}
+
+
   .picture {
     height:900px;
     background-attachment: fixed;
@@ -26,7 +65,7 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 99999;
+    z-index: 99998;
   }
   .logo {
     width: 500px;
@@ -41,12 +80,102 @@
     width:500px;
     height:500px;
   }
+
+  .subnav{display:block}
+  .subnav.hidden{
+    transition-duration: 1s;
+    display:none;
+  }
+
+  .contentdiv{
+    position: absolute;
+    z-index: 999999;
+    width: 80vw;
+    height: 80vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #888;
+    background-color: #000;
+    display:block;
+    transition-duration: 1s;
+  }
+  .contentdiv.visuallyhidden{
+    transition-duration:1s;
+    width:0vw;
+    height:0vh;
+  }
+  .contentdiv.hidden{
+    display:none
+  }
+  .closecontent{
+    position: absolute;
+    left: calc(100% + 20px);
+    top: -20px;
+    border: 1px solid #888;
+    padding: 2px;
+    font-size: 16px;
+    background-color: #000;
+    color: #fff;
+  }
+
   </style>
 </head>
 <body>
   <div class="picture p1 bottomlayer" id="p1"></div>
   <div class="toplayer">
+    <header>
       <div class="logo"><img class="logo-img" src="logo.png"></div>
   </div>
   <div>Logo made with <a href="https://www.designevo.com/" title="Free Online Logo Maker">DesignEvo</a></div>
+  <div class="topmenu">
+  <ul>
+    <li><a class="navlink" href="#" data-link="index.html" data-openin="page">HOME</a></li>
+      <li><a class="navlink" href="#" data-link="about.html" data-openin="page">ABOUT</a></li>
+        <li class="parentlink"><a class="navlink" href="#" data-link="" data-openin="">RECIPIES</a>
+          <div class="subnav hidden">
+          <ul>
+            <li><a class="navlink" href="#" data-link="/recipe/muslim.html" data-openin="div">Muslim</a></li>
+            <li><a class="navlink" href="#" data-link="/recipe/kosher.html" data-openin="div">Kosher</a></li>
+            <li><a class="navlink" href="#" data-link="/recipe/vegan.html" data-openin="div">Vegan</a></li>
+          </ul>
+        </div>
+        </li>
+        </ul>
+  </div>
+
+  <div class="contentdiv visuallyhidden hidden">
+    <iframe id="contentframe" src="" width="100%" height="100%"></iframe>
+    <div class="closecontent">X</div>
+  </div>
+<script>
+$(".navlink").click(function(){
+  if($(this).attr("data-openin") == "div"){
+    $("#contentframe").attr("src", $(this).attr("data-link"));
+    $(".contentdiv").removeClass("hidden");
+    setTimeout(function () {
+      $(".contentdiv").removeClass("visuallyhidden");
+    }, 20);
+
+
+  }else if($(this).attr("data-openin") == "page") {
+    document.location.href = $(this).attr("data-link");
+  }
+});
+
+$(".parentlink").mouseenter(function(){
+  $(".subnav").removeClass("hidden");
+});
+$(".subnav").mouseleave(function(){
+  $(".subnav").addClass("hidden");
+});
+$(".closecontent").click(function(){
+  $(".contentdiv").addClass("visuallyhidden");
+  $(".contentdiv").one('transitionend', function(e) {
+
+      $(".contentdiv").addClass('hidden');
+
+    });
+})
+</script>
 </body>
